@@ -119,11 +119,11 @@ func outputComponentsSection(name string, meta metadata.Metadata) string {
 	section := ""
 	for _, outputDataType := range meta.Outputs {
 		if list := listOfComponentsAccepting(outputDataType); list != "" {
-			section += fmt.Sprintf("- Components that accept %s:\n", outputDataType) + list
+			section += fmt.Sprintf("- Components that accept [%s]({{< relref \"../compatibility\" >}})\n", outputDataType)
 		}
 	}
 	if section != "" {
-		section = fmt.Sprintf("`%s` can output data to the following components:\n\n", name) + section
+		section = fmt.Sprintf("`%s` exports data that can be consumed by the following components:\n\n", name) + section
 	}
 	return section
 }
@@ -132,7 +132,7 @@ func acceptingComponentsSection(componentName string, meta metadata.Metadata) st
 	section := ""
 	for _, acceptedDataType := range meta.Accepts {
 		if list := listOfComponentsOutputting(acceptedDataType); list != "" {
-			section += fmt.Sprintf("- Components that output %s:\n", acceptedDataType) + list
+			section += fmt.Sprintf("- Components that export [%s]({{< relref \"../compatibility\" >}})\n", acceptedDataType)
 		}
 	}
 	if section != "" {

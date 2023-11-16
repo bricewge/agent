@@ -175,14 +175,9 @@ loki.write "local" {
 
 ## Compatible components
 
-`loki.source.kubernetes_events` can output data to the following components:
+`loki.source.kubernetes_events` exports data that can be consumed by the following components:
 
-- Components that accept Loki Logs:
-  - [`loki.echo`]({{< relref "../components/loki.echo.md" >}})
-  - [`loki.process`]({{< relref "../components/loki.process.md" >}})
-  - [`loki.relabel`]({{< relref "../components/loki.relabel.md" >}})
-  - [`loki.write`]({{< relref "../components/loki.write.md" >}})
-  - [`otelcol.receiver.loki`]({{< relref "../components/otelcol.receiver.loki.md" >}})
+- Components that accept [Loki Logs]({{< relref "../compatibility" >}})
 
 Note that connecting some components may not be feasible or components may require further configuration to make the connection work correctly. Please refer to the linked documentation for more details.
 

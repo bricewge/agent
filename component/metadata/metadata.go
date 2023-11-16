@@ -21,9 +21,9 @@ var (
 	// DataTypeLokiLogs represent logs in Loki format
 	DataTypeLokiLogs = DataType("Loki Logs")
 
-	DataTypeOTELTelemetry     = DataType("OTEL Telemetry")
-	DataTypePromMetrics       = DataType("Prometheus Metrics")
-	DataTypePyroscopeProfiles = DataType("Pyroscope Profiles")
+	//DataTypeOTELTelemetry     = DataType("OTEL Telemetry")
+	//DataTypePromMetrics       = DataType("Prometheus Metrics")
+	//DataTypePyroscopeProfiles = DataType("Pyroscope Profiles")
 )
 
 type Metadata struct {
