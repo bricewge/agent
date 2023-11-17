@@ -301,3 +301,6 @@ Some values in the River strings are [escaped][river-strings]:
 [HasAttrOnDataPoint]: https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/processor/filterprocessor/README.md#hasattrondatapoint
 [OTTL booleans]: https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/v0.85.0/pkg/ottl#booleans
 [OTTL math expressions]: https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/v0.85.0/pkg/ottl#math-expressions
+<!-- START GENERATED COMPATIBLE COMPONENTS -->
+
+<!-- END GENERATED COMPATIBLE COMPONENTS -->

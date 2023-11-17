@@ -553,3 +553,6 @@ otelcol.exporter.otlp "production" {
   }
 }
 ```
+<!-- START GENERATED COMPATIBLE COMPONENTS -->
+
+<!-- END GENERATED COMPATIBLE COMPONENTS -->

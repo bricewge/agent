@@ -168,3 +168,6 @@ prometheus.remote_write "default" {
 
 This example assumes that the Secret and ConfigMap have already been created, and that the appropriate field names
 exist in their data.
+<!-- START GENERATED COMPATIBLE COMPONENTS -->
+
+<!-- END GENERATED COMPATIBLE COMPONENTS -->

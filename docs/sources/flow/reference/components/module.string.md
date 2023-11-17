@@ -161,3 +161,6 @@ prometheus.remote_write "grafana_cloud" {
   }
 }
 ```
+<!-- START GENERATED COMPATIBLE COMPONENTS -->
+
+<!-- END GENERATED COMPATIBLE COMPONENTS -->

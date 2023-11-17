@@ -215,3 +215,6 @@ module.git "add" {
   }
 }
 ```
+<!-- START GENERATED COMPATIBLE COMPONENTS -->
+
+<!-- END GENERATED COMPATIBLE COMPONENTS -->

@@ -107,3 +107,6 @@ otelcol.exporter.logging "default" {
     sampling_thereafter = 1
 }
 ```
+<!-- START GENERATED COMPATIBLE COMPONENTS -->
+
+<!-- END GENERATED COMPATIBLE COMPONENTS -->

@@ -145,3 +145,6 @@ otelcol.processor.probabilistic_sampler "default" {
   }
 }
 ```
+<!-- START GENERATED COMPATIBLE COMPONENTS -->
+
+<!-- END GENERATED COMPATIBLE COMPONENTS -->

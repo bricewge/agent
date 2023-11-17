@@ -257,3 +257,6 @@ prometheus.operator.servicemonitors "services" {
     }
 }
 ```
+<!-- START GENERATED COMPATIBLE COMPONENTS -->
+
+<!-- END GENERATED COMPATIBLE COMPONENTS -->

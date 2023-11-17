@@ -129,3 +129,6 @@ prometheus.remote_write "local" {
 ## Technical details
 
 `prometheus.receive_http` uses [snappy](https://en.wikipedia.org/wiki/Snappy_(compression)) for compression.
+<!-- START GENERATED COMPATIBLE COMPONENTS -->
+
+<!-- END GENERATED COMPATIBLE COMPONENTS -->

@@ -105,3 +105,6 @@ otelcol.auth.bearer "creds" {
 
 [otelcol.exporter.otlp]: {{< relref "./otelcol.exporter.otlp.md" >}}
 [otelcol.exporter.otlphttp]: {{< relref "./otelcol.exporter.otlphttp.md" >}}
+<!-- START GENERATED COMPATIBLE COMPONENTS -->
+
+<!-- END GENERATED COMPATIBLE COMPONENTS -->

@@ -74,9 +74,22 @@ func listOfComponentsExporting(dataType metadata.Type) string {
 }
 
 func listOfLinksToComponents(components []string) string {
+	groups := make(map[string][]string)
+
 	str := ""
-	for _, comp := range components {
-		str += fmt.Sprintf("  - [`%[1]s`]({{< relref \"../components/%[1]s.md\" >}})\n", comp)
+
+	for _, component := range components {
+		parts := strings.SplitN(component, ".", 2)
+		namespace := parts[0]
+		groups[namespace] = append(groups[namespace], component)
+	}
+
+	for namespace, components := range groups {
+		str += fmt.Sprintf("\n{{< collapse title=%q >}}\n", namespace)
+		for _, component := range components {
+			str += fmt.Sprintf("- [`%[1]s`]({{< relref \"../components/%[1]s.md\" >}})\n", component)
+		}
+		str += fmt.Sprintf("{{< /collapse >}}\n")
 	}
 	return str
 }

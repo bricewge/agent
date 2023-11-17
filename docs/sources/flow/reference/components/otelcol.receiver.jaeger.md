@@ -278,3 +278,6 @@ otelcol.exporter.otlp "default" {
 ## Technical details
 
 `otelcol.receiver.jaeger` supports [gzip](https://en.wikipedia.org/wiki/Gzip) for compression.
+<!-- START GENERATED COMPATIBLE COMPONENTS -->
+
+<!-- END GENERATED COMPATIBLE COMPONENTS -->

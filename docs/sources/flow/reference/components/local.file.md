@@ -82,3 +82,6 @@ local.file "secret_key" {
   is_secret = true
 }
 ```
+<!-- START GENERATED COMPATIBLE COMPONENTS -->
+
+<!-- END GENERATED COMPATIBLE COMPONENTS -->

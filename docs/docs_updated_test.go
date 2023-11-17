@@ -17,7 +17,7 @@ import (
 
 var fixTestsFlag = flag.Bool("fix-tests", false, "update the test files with the current generated content")
 
-func TestCompatibleComponentsSectionsUpdated(t *testing.T) {
+func TestLinksToTypesSectionsUpdated(t *testing.T) {
 	for _, name := range component.AllNames() {
 		t.Run(name, func(t *testing.T) {
 			runForGenerator(t, generator.NewLinksToTypesGenerator(name))
@@ -40,6 +40,13 @@ func TestCompatibleComponentsPageUpdated(t *testing.T) {
 }
 
 func runForGenerator(t *testing.T, g generator.DocsGenerator) {
+	if *fixTestsFlag {
+		err := g.Write()
+		require.NoError(t, err, "failed to write generated content for: %q", g.Name())
+		t.Log("updated the docs with generated content", g.Name())
+		return
+	}
+
 	generated, err := g.Generate()
 	require.NoError(t, err, "failed to generate: %q", g.Name())
 
@@ -49,12 +56,6 @@ func runForGenerator(t *testing.T, g generator.DocsGenerator) {
 		require.Contains(t, err.Error(), "markers not found", "expected error to be about missing markers")
 		require.Empty(t, actual, "expected empty actual content for %q", g.Name())
 		return
-	}
-
-	if *fixTestsFlag && generated != "" {
-		err = g.Write()
-		require.NoError(t, err, "failed to write generated content for: %q", g.Name())
-		t.Log("updated the docs with generated content", g.Name())
 	}
 
 	actual, err := g.Read()

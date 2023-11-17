@@ -256,3 +256,6 @@ prometheus.operator.podmonitors "pods" {
     }
 }
 ```
+<!-- START GENERATED COMPATIBLE COMPONENTS -->
+
+<!-- END GENERATED COMPATIBLE COMPONENTS -->

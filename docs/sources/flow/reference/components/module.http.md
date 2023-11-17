@@ -170,3 +170,6 @@ export "redis_targets" {
 Replace the following:
   - `REDIS_ADDR`: The address of your Redis instance.
   - `REDIS_PASSWORD_FILE`: The path to a file containing the password for your Redis instance.
+<!-- START GENERATED COMPATIBLE COMPONENTS -->
+
+<!-- END GENERATED COMPATIBLE COMPONENTS -->

@@ -122,3 +122,6 @@ otelcol.auth.oauth2 "creds" {
 ```
 
 [otelcol.exporter.otlp]: {{< relref "./otelcol.exporter.otlp.md" >}}
+<!-- START GENERATED COMPATIBLE COMPONENTS -->
+
+<!-- END GENERATED COMPATIBLE COMPONENTS -->

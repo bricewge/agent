@@ -267,3 +267,6 @@ roleRef:
   name: grafana-agent
   apiGroup: rbac.authorization.k8s.io
 ```
+<!-- START GENERATED COMPATIBLE COMPONENTS -->
+
+<!-- END GENERATED COMPATIBLE COMPONENTS -->

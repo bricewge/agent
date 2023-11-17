@@ -173,3 +173,6 @@ otelcol.auth.sigv4 "creds" {
   }
 }
 ```
+<!-- START GENERATED COMPATIBLE COMPONENTS -->
+
+<!-- END GENERATED COMPATIBLE COMPONENTS -->

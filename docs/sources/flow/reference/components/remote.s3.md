@@ -99,3 +99,6 @@ remote.s3 "data" {
   path = "s3://test-bucket/file.txt"
 }
 ```
+<!-- START GENERATED COMPATIBLE COMPONENTS -->
+
+<!-- END GENERATED COMPATIBLE COMPONENTS -->

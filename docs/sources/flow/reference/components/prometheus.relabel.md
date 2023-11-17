@@ -168,3 +168,6 @@ metric_a{host = "cluster_a/production",  __address__ = "cluster_a", app = "backe
 
 The two resulting metrics are then propagated to each receiver defined in the
 `forward_to` argument.
+<!-- START GENERATED COMPATIBLE COMPONENTS -->
+
+<!-- END GENERATED COMPATIBLE COMPONENTS -->

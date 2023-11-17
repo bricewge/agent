@@ -256,3 +256,6 @@ prometheus.operator.probes "probes" {
     }
 }
 ```
+<!-- START GENERATED COMPATIBLE COMPONENTS -->
+
+<!-- END GENERATED COMPATIBLE COMPONENTS -->

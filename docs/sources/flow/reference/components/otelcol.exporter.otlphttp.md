@@ -155,3 +155,6 @@ otelcol.exporter.otlphttp "tempo" {
     }
 }
 ```
+<!-- START GENERATED COMPATIBLE COMPONENTS -->
+
+<!-- END GENERATED COMPATIBLE COMPONENTS -->

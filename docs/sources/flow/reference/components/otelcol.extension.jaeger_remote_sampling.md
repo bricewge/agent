@@ -307,3 +307,6 @@ otelcol.extension.jaeger_remote_sampling "example" {
   }
 }
 ```
+<!-- START GENERATED COMPATIBLE COMPONENTS -->
+
+<!-- END GENERATED COMPATIBLE COMPONENTS -->

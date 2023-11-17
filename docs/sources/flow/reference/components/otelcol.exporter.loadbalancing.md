@@ -301,3 +301,6 @@ otelcol.exporter.loadbalancing "default" {
     }
 }
 ```
+<!-- START GENERATED COMPATIBLE COMPONENTS -->
+
+<!-- END GENERATED COMPATIBLE COMPONENTS -->

@@ -405,3 +405,6 @@ Any labels that start with `__` will be removed before sending to the endpoint.
 
 {{< docs/shared source="agent" lookup="/wal-data-retention.md" version="<AGENT VERSION>" >}}
 
+<!-- START GENERATED COMPATIBLE COMPONENTS -->
+
+<!-- END GENERATED COMPATIBLE COMPONENTS -->

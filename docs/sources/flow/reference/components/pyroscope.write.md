@@ -160,3 +160,6 @@ pyroscope.scrape "default" {
   forward_to = [pyroscope.write.staging.receiver]
 }
 ```
+<!-- START GENERATED COMPATIBLE COMPONENTS -->
+
+<!-- END GENERATED COMPATIBLE COMPONENTS -->

@@ -109,3 +109,6 @@ configuration.
 
 `otelcol.processor.memory_limiter` does not expose any component-specific debug
 information.
+<!-- START GENERATED COMPATIBLE COMPONENTS -->
+
+<!-- END GENERATED COMPATIBLE COMPONENTS -->

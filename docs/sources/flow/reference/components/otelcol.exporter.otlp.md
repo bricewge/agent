@@ -214,3 +214,6 @@ otelcol.auth.basic "grafana_cloud_tempo" {
     password = env("GRAFANA_CLOUD_API_KEY")
 }
 ```
+<!-- START GENERATED COMPATIBLE COMPONENTS -->
+
+<!-- END GENERATED COMPATIBLE COMPONENTS -->

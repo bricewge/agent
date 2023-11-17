@@ -227,3 +227,6 @@ otelcol.exporter.otlp "production" {
 ```
 
 [otelcol.exporter.otlp]: {{< relref "./otelcol.exporter.otlp.md" >}}
+<!-- START GENERATED COMPATIBLE COMPONENTS -->
+
+<!-- END GENERATED COMPATIBLE COMPONENTS -->

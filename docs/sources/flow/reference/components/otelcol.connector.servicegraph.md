@@ -219,4 +219,6 @@ Some of the metrics in Mimir may look like this:
 ```
 traces_service_graph_request_total{client="shop-backend",failed="false",server="article-service",client_http_method="DELETE",server_http_method="DELETE"}
 traces_service_graph_request_failed_total{client="shop-backend",client_http_method="POST",failed="false",server="auth-service",server_http_method="POST"}
-```
+```<!-- START GENERATED COMPATIBLE COMPONENTS -->
+
+<!-- END GENERATED COMPATIBLE COMPONENTS -->
