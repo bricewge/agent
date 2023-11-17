@@ -1,68 +1,24 @@
 package generator
 
 import (
-	"bytes"
 	"fmt"
 	"github.com/grafana/agent/component/metadata"
-	"os"
 )
 
-const (
-	startDelimiter = "<!-- START GENERATED COMPATIBLE COMPONENTS -->"
-	endDelimiter   = "<!-- END GENERATED COMPATIBLE COMPONENTS -->"
-)
-
-func WriteCompatibleComponentsSection(componentName string) error {
-	filePath := pathToComponentMarkdown(componentName)
-	newSection, err := GenerateCompatibleComponentsSection(componentName)
-	if err != nil {
-		return err
-	}
-	fileContents, err := os.ReadFile(filePath)
-	if err != nil {
-		return err
-	}
-
-	startMarker := startMarkerBytes()
-	endMarker := endMarkerBytes()
-	replacement := append(append(startMarker, []byte(newSection)...), endMarker...)
-
-	startIndex := bytes.Index(fileContents, startMarker)
-	endIndex := bytes.Index(fileContents, endMarker)
-	var newFileContents []byte
-	if startIndex == -1 || endIndex == -1 {
-		// Append the new section to the end of the file
-		newFileContents = append(fileContents, append([]byte("\n"), replacement...)...)
-	} else {
-		// Replace the section with the new content
-		newFileContents = append(fileContents[:startIndex], replacement...)
-		newFileContents = append(newFileContents, fileContents[endIndex+len(endMarker):]...)
-	}
-
-	err = os.WriteFile(filePath, newFileContents, 0644)
-	return err
+type LinksToTypesGenerator struct {
+	component string
 }
 
-func ReadCompatibleComponentsSection(componentName string) (string, error) {
-	filePath := pathToComponentMarkdown(componentName)
-	fileContents, err := os.ReadFile(filePath)
-	if err != nil {
-		return "", err
-	}
-
-	startMarker := startMarkerBytes()
-	endMarker := endMarkerBytes()
-	startIndex := bytes.Index(fileContents, startMarker)
-	endIndex := bytes.Index(fileContents, endMarker)
-	if startIndex == -1 || endIndex == -1 {
-		return "", fmt.Errorf("compatible components section not found in %q", filePath)
-	}
-
-	return string(fileContents[startIndex+len(startMarker) : endIndex]), nil
+func NewLinksToTypesGenerator(component string) *LinksToTypesGenerator {
+	return &LinksToTypesGenerator{component: component}
 }
 
-func GenerateCompatibleComponentsSection(componentName string) (string, error) {
-	meta, err := metadata.ForComponent(componentName)
+func (l *LinksToTypesGenerator) Name() string {
+	return fmt.Sprintf("generator of links to types for %q reference page", l.component)
+}
+
+func (l *LinksToTypesGenerator) Generate() (string, error) {
+	meta, err := metadata.ForComponent(l.component)
 	if err != nil {
 		return "", err
 	}
@@ -71,8 +27,8 @@ func GenerateCompatibleComponentsSection(componentName string) (string, error) {
 	}
 
 	heading := "\n## Compatible components\n\n"
-	acceptingSection := acceptingComponentsSection(componentName, meta)
-	outputSection := outputComponentsSection(componentName, meta)
+	acceptingSection := acceptingComponentsSection(l.component, meta)
+	outputSection := outputComponentsSection(l.component, meta)
 
 	if acceptingSection == "" && outputSection == "" {
 		return "", nil
@@ -83,6 +39,35 @@ func GenerateCompatibleComponentsSection(componentName string) (string, error) {
 		"Please refer to the linked documentation for more details.\n\n"
 
 	return heading + acceptingSection + outputSection + note, nil
+}
+
+func (l *LinksToTypesGenerator) Read() (string, error) {
+	content, err := readBetweenMarkers(l.startMarker(), l.endMarker(), l.pathToComponentMarkdown())
+	if err != nil {
+		return "", fmt.Errorf("failed to read existing content for %q: %w", l.Name(), err)
+	}
+	return content, err
+}
+
+func (l *LinksToTypesGenerator) Write() error {
+	newSection, err := l.Generate()
+	if err != nil {
+		return err
+	}
+	newSection = "\n" + newSection + "\n"
+	return writeBetweenMarkers(l.startMarker(), l.endMarker(), l.pathToComponentMarkdown(), newSection, true)
+}
+
+func (l *LinksToTypesGenerator) startMarker() string {
+	return "<!-- START GENERATED COMPATIBLE COMPONENTS -->"
+}
+
+func (l *LinksToTypesGenerator) endMarker() string {
+	return "<!-- END GENERATED COMPATIBLE COMPONENTS -->"
+}
+
+func (l *LinksToTypesGenerator) pathToComponentMarkdown() string {
+	return fmt.Sprintf("sources/flow/reference/components/%s.md", l.component)
 }
 
 func outputComponentsSection(name string, meta metadata.Metadata) string {
@@ -109,16 +94,4 @@ func acceptingComponentsSection(componentName string, meta metadata.Metadata) st
 		section = fmt.Sprintf("`%s` can accept arguments from the following components:\n\n", componentName) + section + "\n"
 	}
 	return section
-}
-
-func pathToComponentMarkdown(name string) string {
-	return fmt.Sprintf("sources/flow/reference/components/%s.md", name)
-}
-
-func endMarkerBytes() []byte {
-	return []byte(endDelimiter + "\n")
-}
-
-func startMarkerBytes() []byte {
-	return []byte(startDelimiter + "\n")
 }

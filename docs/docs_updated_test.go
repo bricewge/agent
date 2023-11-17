@@ -20,28 +20,7 @@ var fixTestsFlag = flag.Bool("fix-tests", false, "update the test files with the
 func TestCompatibleComponentsSectionsUpdated(t *testing.T) {
 	for _, name := range component.AllNames() {
 		t.Run(name, func(t *testing.T) {
-			generated, err := generator.GenerateCompatibleComponentsSection(name)
-			require.NoError(t, err, "failed to generate references section for %q", name)
-
-			if generated == "" {
-				t.Skipf("no compatible components section defined for %q", name)
-			}
-
-			if *fixTestsFlag {
-				err = generator.WriteCompatibleComponentsSection(name)
-				require.NoError(t, err, "failed to write generated references section for %q", name)
-				t.Log("updated the docs with generated content")
-			}
-
-			actual, err := generator.ReadCompatibleComponentsSection(name)
-			require.NoError(t, err, "failed to read generated components section for %q, try running 'go generate ./docs'", name)
-			require.Contains(
-				t,
-				actual,
-				strings.TrimSpace(generated),
-				"expected documentation for %q to contain generated references section, try running 'go generate ./docs'",
-				name,
-			)
+			runForGenerator(t, generator.NewLinksToTypesGenerator(name))
 		})
 	}
 }
