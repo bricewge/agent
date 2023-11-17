@@ -433,7 +433,7 @@ http://localhost:12345/debug/fgprof?seconds=14
 
 ## Compatible components
 
-`pyroscope.scrape` can accept data from the following components:
+`pyroscope.scrape` can accept arguments from the following components:
 
 - Components that export [Targets]({{< relref "../compatibility" >}})
 

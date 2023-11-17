@@ -125,7 +125,7 @@ Replace the following:
 
 ## Compatible components
 
-`discovery.digitalocean` exports data that can be consumed by the following components:
+`discovery.digitalocean` exports can be consumed by the following components:
 
 - Components that accept [Targets]({{< relref "../compatibility" >}})
 

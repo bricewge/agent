@@ -462,7 +462,7 @@ discovery job, the `type` field of each `discovery_job` must match either the de
 
 ## Compatible components
 
-`prometheus.exporter.cloudwatch` exports data that can be consumed by the following components:
+`prometheus.exporter.cloudwatch` exports can be consumed by the following components:
 
 - Components that accept [Targets]({{< relref "../compatibility" >}})
 

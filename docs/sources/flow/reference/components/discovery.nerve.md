@@ -102,7 +102,7 @@ Replace the following:
 
 ## Compatible components
 
-`discovery.nerve` exports data that can be consumed by the following components:
+`discovery.nerve` exports can be consumed by the following components:
 
 - Components that accept [Targets]({{< relref "../compatibility" >}})
 

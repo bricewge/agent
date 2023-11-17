@@ -139,7 +139,7 @@ Replace the following:
 
 ## Compatible components
 
-`discovery.ec2` exports data that can be consumed by the following components:
+`discovery.ec2` exports can be consumed by the following components:
 
 - Components that accept [Targets]({{< relref "../compatibility" >}})
 

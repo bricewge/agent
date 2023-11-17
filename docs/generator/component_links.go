@@ -5,9 +5,6 @@ import (
 	"fmt"
 	"github.com/grafana/agent/component/metadata"
 	"os"
-
-	"github.com/grafana/agent/component"
-	"golang.org/x/exp/slices"
 )
 
 const (
@@ -88,42 +85,15 @@ func GenerateCompatibleComponentsSection(componentName string) (string, error) {
 	return heading + acceptingSection + outputSection + note, nil
 }
 
-func allComponentsThat(f func(meta metadata.Metadata) bool) []string {
-	var result []string
-	for _, name := range component.AllNames() {
-		meta, err := metadata.ForComponent(name)
-		if err != nil {
-			panic(err) // should never happen
-		}
-
-		if f(meta) {
-			result = append(result, name)
-		}
-	}
-	return result
-}
-
-func allComponentsThatOutput(dataType metadata.DataType) []string {
-	return allComponentsThat(func(meta metadata.Metadata) bool {
-		return slices.Contains(meta.Outputs, dataType)
-	})
-}
-
-func allComponentsThatAccept(dataType metadata.DataType) []string {
-	return allComponentsThat(func(meta metadata.Metadata) bool {
-		return slices.Contains(meta.Accepts, dataType)
-	})
-}
-
 func outputComponentsSection(name string, meta metadata.Metadata) string {
 	section := ""
-	for _, outputDataType := range meta.Outputs {
+	for _, outputDataType := range meta.Exports {
 		if list := listOfComponentsAccepting(outputDataType); list != "" {
-			section += fmt.Sprintf("- Components that accept [%s]({{< relref \"../compatibility\" >}})\n", outputDataType)
+			section += fmt.Sprintf("- Components that accept [%s]({{< relref \"../compatibility\" >}})\n", outputDataType.Name)
 		}
 	}
 	if section != "" {
-		section = fmt.Sprintf("`%s` exports data that can be consumed by the following components:\n\n", name) + section
+		section = fmt.Sprintf("`%s` exports can be consumed by the following components:\n\n", name) + section
 	}
 	return section
 }
@@ -131,22 +101,22 @@ func outputComponentsSection(name string, meta metadata.Metadata) string {
 func acceptingComponentsSection(componentName string, meta metadata.Metadata) string {
 	section := ""
 	for _, acceptedDataType := range meta.Accepts {
-		if list := listOfComponentsOutputting(acceptedDataType); list != "" {
-			section += fmt.Sprintf("- Components that export [%s]({{< relref \"../compatibility\" >}})\n", acceptedDataType)
+		if list := listOfComponentsExporting(acceptedDataType); list != "" {
+			section += fmt.Sprintf("- Components that export [%s]({{< relref \"../compatibility\" >}})\n", acceptedDataType.Name)
 		}
 	}
 	if section != "" {
-		section = fmt.Sprintf("`%s` can accept data from the following components:\n\n", componentName) + section + "\n"
+		section = fmt.Sprintf("`%s` can accept arguments from the following components:\n\n", componentName) + section + "\n"
 	}
 	return section
 }
 
-func listOfComponentsAccepting(dataType metadata.DataType) string {
+func listOfComponentsAccepting(dataType metadata.Type) string {
 	return listOfLinksToComponents(allComponentsThatAccept(dataType))
 }
 
-func listOfComponentsOutputting(dataType metadata.DataType) string {
-	return listOfLinksToComponents(allComponentsThatOutput(dataType))
+func listOfComponentsExporting(dataType metadata.Type) string {
+	return listOfLinksToComponents(allComponentsThatExport(dataType))
 }
 
 func listOfLinksToComponents(components []string) string {

@@ -220,7 +220,7 @@ Replace the following:
 
 ## Compatible components
 
-`discovery.docker` exports data that can be consumed by the following components:
+`discovery.docker` exports can be consumed by the following components:
 
 - Components that accept [Targets]({{< relref "../compatibility" >}})
 

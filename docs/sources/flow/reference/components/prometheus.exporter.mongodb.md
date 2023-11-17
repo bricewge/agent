@@ -94,7 +94,7 @@ prometheus.remote_write "default" {
 
 ## Compatible components
 
-`prometheus.exporter.mongodb` exports data that can be consumed by the following components:
+`prometheus.exporter.mongodb` exports can be consumed by the following components:
 
 - Components that accept [Targets]({{< relref "../compatibility" >}})
 

@@ -178,7 +178,7 @@ Replace the following:
 
 ## Compatible components
 
-`discovery.file` exports data that can be consumed by the following components:
+`discovery.file` exports can be consumed by the following components:
 
 - Components that accept [Targets]({{< relref "../compatibility" >}})
 

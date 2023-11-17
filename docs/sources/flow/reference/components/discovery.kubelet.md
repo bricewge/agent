@@ -198,7 +198,7 @@ Replace the following:
 
 ## Compatible components
 
-`discovery.kubelet` exports data that can be consumed by the following components:
+`discovery.kubelet` exports can be consumed by the following components:
 
 - Components that accept [Targets]({{< relref "../compatibility" >}})
 

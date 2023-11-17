@@ -243,7 +243,7 @@ Replace the following:
 
 ## Compatible components
 
-`discovery.dockerswarm` exports data that can be consumed by the following components:
+`discovery.dockerswarm` exports can be consumed by the following components:
 
 - Components that accept [Targets]({{< relref "../compatibility" >}})
 

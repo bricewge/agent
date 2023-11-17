@@ -134,7 +134,7 @@ Replace the following:
 
 ## Compatible components
 
-`discovery.consulagent` exports data that can be consumed by the following components:
+`discovery.consulagent` exports can be consumed by the following components:
 
 - Components that accept [Targets]({{< relref "../compatibility" >}})
 

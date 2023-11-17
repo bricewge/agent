@@ -180,7 +180,7 @@ prometheus.remote_write "demo" {
 
 ## Compatible components
 
-`discovery.linode` exports data that can be consumed by the following components:
+`discovery.linode` exports can be consumed by the following components:
 
 - Components that accept [Targets]({{< relref "../compatibility" >}})
 

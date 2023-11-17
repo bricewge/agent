@@ -112,7 +112,7 @@ Replace the following:
 
 ## Compatible components
 
-`prometheus.exporter.kafka` exports data that can be consumed by the following components:
+`prometheus.exporter.kafka` exports can be consumed by the following components:
 
 - Components that accept [Targets]({{< relref "../compatibility" >}})
 

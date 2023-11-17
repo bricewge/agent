@@ -177,7 +177,7 @@ prometheus.exporter.gcp "lb_subset_with_filter" {
 
 ## Compatible components
 
-`prometheus.exporter.gcp` exports data that can be consumed by the following components:
+`prometheus.exporter.gcp` exports can be consumed by the following components:
 
 - Components that accept [Targets]({{< relref "../compatibility" >}})
 

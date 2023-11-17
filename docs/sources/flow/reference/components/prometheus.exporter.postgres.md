@@ -218,7 +218,7 @@ Replace the following:
 
 ## Compatible components
 
-`prometheus.exporter.postgres` exports data that can be consumed by the following components:
+`prometheus.exporter.postgres` exports can be consumed by the following components:
 
 - Components that accept [Targets]({{< relref "../compatibility" >}})
 

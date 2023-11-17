@@ -179,7 +179,7 @@ Replace the following:
 
 ## Compatible components
 
-`discovery.scaleway` exports data that can be consumed by the following components:
+`discovery.scaleway` exports can be consumed by the following components:
 
 - Components that accept [Targets]({{< relref "../compatibility" >}})
 

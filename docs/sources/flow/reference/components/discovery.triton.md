@@ -134,7 +134,7 @@ Replace the following:
 
 ## Compatible components
 
-`discovery.triton` exports data that can be consumed by the following components:
+`discovery.triton` exports can be consumed by the following components:
 
 - Components that accept [Targets]({{< relref "../compatibility" >}})
 

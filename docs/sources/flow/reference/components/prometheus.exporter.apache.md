@@ -92,7 +92,7 @@ Replace the following:
 
 ## Compatible components
 
-`prometheus.exporter.apache` exports data that can be consumed by the following components:
+`prometheus.exporter.apache` exports can be consumed by the following components:
 
 - Components that accept [Targets]({{< relref "../compatibility" >}})
 

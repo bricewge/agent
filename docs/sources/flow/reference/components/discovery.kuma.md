@@ -140,7 +140,7 @@ Replace the following:
 
 ## Compatible components
 
-`discovery.kuma` exports data that can be consumed by the following components:
+`discovery.kuma` exports can be consumed by the following components:
 
 - Components that accept [Targets]({{< relref "../compatibility" >}})
 

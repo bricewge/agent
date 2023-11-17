@@ -161,7 +161,7 @@ Replace the following:
 
 ## Compatible components
 
-`discovery.puppetdb` exports data that can be consumed by the following components:
+`discovery.puppetdb` exports can be consumed by the following components:
 
 - Components that accept [Targets]({{< relref "../compatibility" >}})
 

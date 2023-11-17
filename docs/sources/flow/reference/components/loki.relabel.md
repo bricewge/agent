@@ -116,11 +116,11 @@ loki.relabel "keep_error_only" {
 
 ## Compatible components
 
-`loki.relabel` can accept data from the following components:
+`loki.relabel` can accept arguments from the following components:
 
 - Components that export [Loki `LogsReceiver`]({{< relref "../compatibility" >}})
 
-`loki.relabel` exports data that can be consumed by the following components:
+`loki.relabel` exports can be consumed by the following components:
 
 - Components that accept [Loki `LogsReceiver`]({{< relref "../compatibility" >}})
 

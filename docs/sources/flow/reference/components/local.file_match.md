@@ -150,11 +150,11 @@ Replace the following:
 
 ## Compatible components
 
-`local.file_match` can accept data from the following components:
+`local.file_match` can accept arguments from the following components:
 
 - Components that export [Targets]({{< relref "../compatibility" >}})
 
-`local.file_match` exports data that can be consumed by the following components:
+`local.file_match` exports can be consumed by the following components:
 
 - Components that accept [Targets]({{< relref "../compatibility" >}})
 

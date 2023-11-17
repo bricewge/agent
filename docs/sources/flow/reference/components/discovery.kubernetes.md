@@ -498,7 +498,7 @@ Replace the following:
 
 ## Compatible components
 
-`discovery.kubernetes` exports data that can be consumed by the following components:
+`discovery.kubernetes` exports can be consumed by the following components:
 
 - Components that accept [Targets]({{< relref "../compatibility" >}})
 

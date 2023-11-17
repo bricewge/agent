@@ -150,7 +150,7 @@ Replace the following:
 
 ## Compatible components
 
-`discovery.marathon` exports data that can be consumed by the following components:
+`discovery.marathon` exports can be consumed by the following components:
 
 - Components that accept [Targets]({{< relref "../compatibility" >}})
 

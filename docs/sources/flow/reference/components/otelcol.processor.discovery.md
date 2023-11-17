@@ -196,7 +196,7 @@ otelcol.processor.discovery "default" {
 
 ## Compatible components
 
-`otelcol.processor.discovery` can accept data from the following components:
+`otelcol.processor.discovery` can accept arguments from the following components:
 
 - Components that export [Targets]({{< relref "../compatibility" >}})
 

@@ -99,7 +99,7 @@ Replace the following:
 
 ## Compatible components
 
-`discovery.dns` exports data that can be consumed by the following components:
+`discovery.dns` exports can be consumed by the following components:
 
 - Components that accept [Targets]({{< relref "../compatibility" >}})
 

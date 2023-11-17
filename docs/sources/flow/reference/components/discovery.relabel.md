@@ -127,11 +127,11 @@ discovery.relabel "keep_backend_only" {
 
 ## Compatible components
 
-`discovery.relabel` can accept data from the following components:
+`discovery.relabel` can accept arguments from the following components:
 
 - Components that export [Targets]({{< relref "../compatibility" >}})
 
-`discovery.relabel` exports data that can be consumed by the following components:
+`discovery.relabel` exports can be consumed by the following components:
 
 - Components that accept [Targets]({{< relref "../compatibility" >}})
 

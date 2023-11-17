@@ -100,7 +100,7 @@ Replace the following:
 
 ## Compatible components
 
-`prometheus.exporter.github` exports data that can be consumed by the following components:
+`prometheus.exporter.github` exports can be consumed by the following components:
 
 - Components that accept [Targets]({{< relref "../compatibility" >}})
 

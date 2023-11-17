@@ -2,6 +2,7 @@ package docs
 
 import (
 	"flag"
+	"github.com/grafana/agent/component/metadata"
 	"strings"
 	"testing"
 
@@ -12,11 +13,11 @@ import (
 )
 
 // Run the below generate command to automatically update the Markdown docs with generated content
-//go:generate go test -run TestCompatibleComponentsSectionUpdated -fix-tests
+//go:generate go test -fix-tests
 
 var fixTestsFlag = flag.Bool("fix-tests", false, "update the test files with the current generated content")
 
-func TestCompatibleComponentsSectionUpdated(t *testing.T) {
+func TestCompatibleComponentsSectionsUpdated(t *testing.T) {
 	for _, name := range component.AllNames() {
 		t.Run(name, func(t *testing.T) {
 			generated, err := generator.GenerateCompatibleComponentsSection(name)
@@ -43,4 +44,37 @@ func TestCompatibleComponentsSectionUpdated(t *testing.T) {
 			)
 		})
 	}
+}
+
+func TestCompatibleComponentsPageUpdated(t *testing.T) {
+	path := "sources/flow/reference/compatibility/_index.md"
+	for _, typ := range metadata.AllTypes {
+		runForGenerator(t, generator.NewExportersListGenerator(typ, path))
+		runForGenerator(t, generator.NewConsumersListGenerator(typ, path))
+	}
+}
+
+func runForGenerator(t *testing.T, g generator.DocsGenerator) {
+	generated, err := g.Generate()
+	require.NoError(t, err, "failed to generate: %q", g.Name())
+
+	if generated == "" {
+		t.Skipf("nothing generated for %q, skipping", g.Name())
+	}
+
+	if *fixTestsFlag {
+		err = g.Write()
+		require.NoError(t, err, "failed to write generated content for: %q", g.Name())
+		t.Log("updated the docs with generated content", g.Name())
+	}
+
+	actual, err := g.Read()
+	require.NoError(t, err, "failed to read existing generated docs for %q, try running 'go generate ./docs'", g.Name())
+	require.Contains(
+		t,
+		actual,
+		strings.TrimSpace(generated),
+		"outdated docs detected when running %q, try updating with 'go generate ./docs'",
+		g.Name(),
+	)
 }

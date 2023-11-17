@@ -116,7 +116,7 @@ Replace the following:
 
 ## Compatible components
 
-`prometheus.exporter.elasticsearch` exports data that can be consumed by the following components:
+`prometheus.exporter.elasticsearch` exports can be consumed by the following components:
 
 - Components that accept [Targets]({{< relref "../compatibility" >}})
 

@@ -13,31 +13,31 @@ func Test_inferMetadata(t *testing.T) {
 	}{
 		{
 			name:     "discovery.dns",
-			expected: Metadata{Outputs: []DataType{DataTypeTargets}},
+			expected: Metadata{Exports: []Type{TypeTargets}},
 		},
 		{
 			name: "discovery.relabel",
 			expected: Metadata{
-				Accepts: []DataType{DataTypeTargets},
-				Outputs: []DataType{DataTypeTargets},
+				Accepts: []Type{TypeTargets},
+				Exports: []Type{TypeTargets},
 			},
 		},
 		{
 			name:     "loki.echo",
-			expected: Metadata{Accepts: []DataType{DataTypeLokiLogs}},
+			expected: Metadata{Accepts: []Type{TypeLokiLogs}},
 		},
 		{
 			name: "loki.source.file",
 			expected: Metadata{
-				Accepts: []DataType{DataTypeTargets},
-				Outputs: []DataType{DataTypeLokiLogs},
+				Accepts: []Type{TypeTargets},
+				Exports: []Type{TypeLokiLogs},
 			},
 		},
 		{
 			name: "loki.process",
 			expected: Metadata{
-				Accepts: []DataType{DataTypeLokiLogs},
-				Outputs: []DataType{DataTypeLokiLogs},
+				Accepts: []Type{TypeLokiLogs},
+				Exports: []Type{TypeLokiLogs},
 			},
 		},
 	}

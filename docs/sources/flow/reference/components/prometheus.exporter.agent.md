@@ -75,7 +75,7 @@ Replace the following:
 
 ## Compatible components
 
-`prometheus.exporter.agent` exports data that can be consumed by the following components:
+`prometheus.exporter.agent` exports can be consumed by the following components:
 
 - Components that accept [Targets]({{< relref "../compatibility" >}})
 

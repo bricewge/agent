@@ -104,7 +104,7 @@ Replace the following:
 
 ## Compatible components
 
-`discovery.lightsail` exports data that can be consumed by the following components:
+`discovery.lightsail` exports can be consumed by the following components:
 
 - Components that accept [Targets]({{< relref "../compatibility" >}})
 

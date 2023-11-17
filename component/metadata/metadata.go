@@ -10,29 +10,77 @@ import (
 	"github.com/grafana/agent/component/discovery"
 )
 
-type DataType string
+//TODO(thampiotr): Instead of metadata package reaching into registry, we'll migrate to using a YAML metadata file that
+//				   contains information about all the components. This file will be generated separately from the
+//				   registry and can be used by other tools.
+
+type Type struct {
+	Name string
+	// Returns true if provided args include this type (including nested structs)
+	ExistsInArgsFn func(args component.Arguments) bool
+	// Returns true if provided exports include this type (including nested structs)
+	ExistsInExportsFn func(exports component.Exports) bool
+}
 
 var (
-	// DataTypeTargets represents things that need to be scraped. These are used by multiple telemetry signals
-	// scraping components and often require special labels, e.g. __path__ label is required for scraping
-	// logs from files using loki.source.file component.
-	DataTypeTargets = DataType("Targets")
+	// TypeTargets represents things that need to be scraped.
+	TypeTargets = Type{
+		Name: "Targets",
+		ExistsInArgsFn: func(args component.Arguments) bool {
+			return hasFieldOfType(args, reflect.TypeOf([]discovery.Target{}))
+		},
+		ExistsInExportsFn: func(exports component.Exports) bool {
+			return hasFieldOfType(exports, reflect.TypeOf([]discovery.Target{}))
+		},
+	}
 
-	// DataTypeLokiLogs represent logs in Loki format
-	DataTypeLokiLogs = DataType("Loki `LogsReceiver`")
+	// TypeLokiLogs represent logs in Loki format
+	TypeLokiLogs = Type{
+		Name: "Loki `LogsReceiver`",
+		ExistsInArgsFn: func(args component.Arguments) bool {
+			return hasFieldOfType(args, reflect.TypeOf([]loki.LogsReceiver{}))
+		},
+		ExistsInExportsFn: func(exports component.Exports) bool {
+			return hasFieldOfType(exports, reflect.TypeOf(loki.NewLogsReceiver()))
+		},
+	}
 
-	//DataTypeOTELTelemetry     = DataType("OTEL Telemetry")
-	//DataTypePromMetrics       = DataType("Prometheus Metrics")
-	//DataTypePyroscopeProfiles = DataType("Pyroscope Profiles")
+	//TODO(thampiotr): add more types
+	//DataTypeOTELTelemetry     = Type("OTEL Telemetry")
+	//DataTypePromMetrics       = Type("Prometheus Metrics")
+	//DataTypePyroscopeProfiles = Type("Pyroscope Profiles")
+
+	AllTypes = []Type{
+		TypeTargets,
+		TypeLokiLogs,
+	}
 )
 
 type Metadata struct {
-	Accepts []DataType
-	Outputs []DataType
+	Accepts []Type
+	Exports []Type
 }
 
 func (m Metadata) Empty() bool {
-	return len(m.Accepts) == 0 && len(m.Outputs) == 0
+	return len(m.Accepts) == 0 && len(m.Exports) == 0
+}
+
+func (m Metadata) AcceptsType(t Type) bool {
+	for _, a := range m.Accepts {
+		if a.Name == t.Name {
+			return true
+		}
+	}
+	return false
+}
+
+func (m Metadata) ExportsType(t Type) bool {
+	for _, o := range m.Exports {
+		if o.Name == t.Name {
+			return true
+		}
+	}
+	return false
 }
 
 func ForComponent(name string) (Metadata, error) {
@@ -44,32 +92,16 @@ func ForComponent(name string) (Metadata, error) {
 }
 
 func inferMetadata(args component.Arguments, exports component.Exports) Metadata {
-	var accepts []DataType
-	var outputs []DataType
-
-	if exports != nil {
-		if hasFieldOfType(exports, reflect.TypeOf(loki.NewLogsReceiver())) {
-			accepts = append(accepts, DataTypeLokiLogs)
+	m := Metadata{}
+	for _, t := range AllTypes {
+		if t.ExistsInArgsFn(args) {
+			m.Accepts = append(m.Accepts, t)
 		}
-		if hasFieldOfType(exports, reflect.TypeOf([]discovery.Target{})) {
-			outputs = append(outputs, DataTypeTargets)
+		if t.ExistsInExportsFn(exports) {
+			m.Exports = append(m.Exports, t)
 		}
 	}
-
-	if args != nil {
-		if hasFieldOfType(args, reflect.TypeOf([]discovery.Target{})) {
-			accepts = append(accepts, DataTypeTargets)
-		}
-		// Components that have e.g. `ForwardsTo []loki.LogsReceiver` arguments, typically output logs
-		if hasFieldOfType(args, reflect.TypeOf([]loki.LogsReceiver{})) {
-			outputs = append(outputs, DataTypeLokiLogs)
-		}
-	}
-
-	return Metadata{
-		Accepts: accepts,
-		Outputs: outputs,
-	}
+	return m
 }
 
 func hasFieldOfType(obj interface{}, fieldType reflect.Type) bool {

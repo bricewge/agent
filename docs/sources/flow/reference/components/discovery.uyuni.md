@@ -128,7 +128,7 @@ Replace the following:
 
 ## Compatible components
 
-`discovery.uyuni` exports data that can be consumed by the following components:
+`discovery.uyuni` exports can be consumed by the following components:
 
 - Components that accept [Targets]({{< relref "../compatibility" >}})
 

@@ -217,7 +217,7 @@ Replace the following:
 
 ## Compatible components
 
-`prometheus.exporter.mysql` exports data that can be consumed by the following components:
+`prometheus.exporter.mysql` exports can be consumed by the following components:
 
 - Components that accept [Targets]({{< relref "../compatibility" >}})
 

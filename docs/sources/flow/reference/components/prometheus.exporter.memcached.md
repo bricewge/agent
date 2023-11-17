@@ -104,7 +104,7 @@ Replace the following:
 
 ## Compatible components
 
-`prometheus.exporter.memcached` exports data that can be consumed by the following components:
+`prometheus.exporter.memcached` exports can be consumed by the following components:
 
 - Components that accept [Targets]({{< relref "../compatibility" >}})
 

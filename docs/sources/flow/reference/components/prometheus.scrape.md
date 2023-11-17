@@ -292,7 +292,7 @@ Special labels added after a scrape
 
 ## Compatible components
 
-`prometheus.scrape` can accept data from the following components:
+`prometheus.scrape` can accept arguments from the following components:
 
 - Components that export [Targets]({{< relref "../compatibility" >}})
 

@@ -100,7 +100,7 @@ prometheus.remote_write "default" {
 
 ## Compatible components
 
-`discovery.serverset` exports data that can be consumed by the following components:
+`discovery.serverset` exports can be consumed by the following components:
 
 - Components that accept [Targets]({{< relref "../compatibility" >}})
 

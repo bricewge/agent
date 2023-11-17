@@ -162,7 +162,7 @@ Replace the following:
 
 ## Compatible components
 
-`discovery.openstack` exports data that can be consumed by the following components:
+`discovery.openstack` exports can be consumed by the following components:
 
 - Components that accept [Targets]({{< relref "../compatibility" >}})
 

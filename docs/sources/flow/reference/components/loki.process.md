@@ -1698,11 +1698,11 @@ loki.process "local" {
 
 ## Compatible components
 
-`loki.process` can accept data from the following components:
+`loki.process` can accept arguments from the following components:
 
 - Components that export [Loki `LogsReceiver`]({{< relref "../compatibility" >}})
 
-`loki.process` exports data that can be consumed by the following components:
+`loki.process` exports can be consumed by the following components:
 
 - Components that accept [Loki `LogsReceiver`]({{< relref "../compatibility" >}})
 
