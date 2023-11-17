@@ -33,12 +33,12 @@ func TestCompatibleComponentsSectionUpdated(t *testing.T) {
 			}
 
 			actual, err := generator.ReadCompatibleComponentsSection(name)
-			require.NoError(t, err, "failed to read generated components section for %q", name)
+			require.NoError(t, err, "failed to read generated components section for %q, try running 'go generate ./docs'", name)
 			require.Contains(
 				t,
 				actual,
 				strings.TrimSpace(generated),
-				"expected documentation for %q to contain generated references section",
+				"expected documentation for %q to contain generated references section, try running 'go generate ./docs'",
 				name,
 			)
 		})
