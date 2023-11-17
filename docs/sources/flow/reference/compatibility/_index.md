@@ -33,7 +33,7 @@ following components to build your Loki logs pipeline:
 Below are components that _export_ Loki `LogsReceiver` grouped by namespace. Click
 on the namespace to expand and see more detail.
 
-<!-- START GENERATED SECTION: COMPONENTS -->
+<!-- START GENERATED SECTION: EXPORTERS OF Loki `LogsReceiver` -->
 
 {{< collapse title="faro" >}}
 - [`faro.receiver`]({{< relref "../components/faro.receiver.md" >}})
@@ -63,6 +63,8 @@ on the namespace to expand and see more detail.
 {{< collapse title="otelcol" >}}
 - [`otelcol.exporter.loki`]({{< relref "../components/otelcol.exporter.loki.md" >}})
 {{< /collapse >}}
+
+<!-- END GENERATED SECTION: EXPORTERS OF Loki `LogsReceiver` -->
 
 ### Consumers
 Below are components that _consume_ Loki `LogsReceiver` grouped by namespace. Click
