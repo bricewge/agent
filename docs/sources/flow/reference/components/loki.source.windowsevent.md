@@ -81,7 +81,7 @@ loki.write "endpoint" {
 
 `loki.source.windowsevent` exports data that can be consumed by the following components:
 
-- Components that accept [Loki Logs]({{< relref "../compatibility" >}})
+- Components that accept [Loki `LogsReceiver`]({{< relref "../compatibility" >}})
 
 Note that connecting some components may not be feasible or components may require further configuration to make the connection work correctly. Please refer to the linked documentation for more details.
 

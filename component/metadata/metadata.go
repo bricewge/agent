@@ -19,7 +19,7 @@ var (
 	DataTypeTargets = DataType("Targets")
 
 	// DataTypeLokiLogs represent logs in Loki format
-	DataTypeLokiLogs = DataType("Loki Logs")
+	DataTypeLokiLogs = DataType("Loki `LogsReceiver`")
 
 	//DataTypeOTELTelemetry     = DataType("OTEL Telemetry")
 	//DataTypePromMetrics       = DataType("Prometheus Metrics")

@@ -106,7 +106,7 @@ otelcol.exporter.otlp "default" {
 
 `otelcol.receiver.loki` can accept data from the following components:
 
-- Components that export [Loki Logs]({{< relref "../compatibility" >}})
+- Components that export [Loki `LogsReceiver`]({{< relref "../compatibility" >}})
 
 
 Note that connecting some components may not be feasible or components may require further configuration to make the connection work correctly. Please refer to the linked documentation for more details.
