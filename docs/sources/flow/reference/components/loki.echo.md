@@ -47,20 +47,9 @@ Name | Type | Description
 
 `loki.echo` does not expose any component-specific debug information.
 
-<!-- START GENERATED COMPATIBLE COMPONENTS -->
+## Example
 
-## Compatible components
-
-`loki.echo` can accept data from the following components:
-
-- Components that export [Loki Logs]({{< relref "../compatibility" >}})
-
-
-Note that connecting some components may not be feasible or components may require further configuration to make the connection work correctly. Please refer to the linked documentation for more details.
-
-<!-- END GENERATED COMPATIBLE COMPONENTS -->
- GENERATED COMPATIBLE COMPONENTS -->
-ipeline that reads log files from `/var/log` and
+This example creates a pipeline that reads log files from `/var/log` and
 prints log lines to echo:
 
 ```river
