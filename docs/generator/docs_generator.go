@@ -79,7 +79,7 @@ func readBetweenMarkers(startMarker string, endMarker string, filePath string) (
 	startIndex := bytes.Index(fileContents, []byte(startMarker))
 	endIndex := bytes.LastIndex(fileContents, []byte(endMarker))
 	if startIndex == -1 || endIndex == -1 {
-		return "", fmt.Errorf("markers %q or %q not found", startMarker, endMarker)
+		return "", fmt.Errorf("markers not found: %q or %q", startMarker, endMarker)
 	}
 
 	return string(fileContents[startIndex+len(startMarker) : endIndex]), nil

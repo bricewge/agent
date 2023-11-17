@@ -44,10 +44,14 @@ func runForGenerator(t *testing.T, g generator.DocsGenerator) {
 	require.NoError(t, err, "failed to generate: %q", g.Name())
 
 	if generated == "" {
-		t.Skipf("nothing generated for %q, skipping", g.Name())
+		actual, err := g.Read()
+		require.Error(t, err, "expected error when reading existing generated docs for %q", g.Name())
+		require.Contains(t, err.Error(), "markers not found", "expected error to be about missing markers")
+		require.Empty(t, actual, "expected empty actual content for %q", g.Name())
+		return
 	}
 
-	if *fixTestsFlag {
+	if *fixTestsFlag && generated != "" {
 		err = g.Write()
 		require.NoError(t, err, "failed to write generated content for: %q", g.Name())
 		t.Log("updated the docs with generated content", g.Name())
