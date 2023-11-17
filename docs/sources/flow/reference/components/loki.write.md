@@ -240,7 +240,7 @@ Any labels that start with `__` will be removed before sending to the endpoint.
 
 `loki.write` exports can be consumed by the following components:
 
-- Components that accept [Loki `LogsReceiver`]({{< relref "../compatibility" >}})
+- Components that accept [Loki `LogsReceiver`]({{< relref "../compatibility/#loki-logsreceiver-consumers" >}})
 
 Note that connecting some components may not be feasible or components may require further configuration to make the connection work correctly. Please refer to the linked documentation for more details.
 

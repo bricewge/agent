@@ -3,6 +3,8 @@ package generator
 import (
 	"fmt"
 	"github.com/grafana/agent/component/metadata"
+	"regexp"
+	"strings"
 )
 
 type LinksToTypesGenerator struct {
@@ -74,7 +76,11 @@ func outputComponentsSection(name string, meta metadata.Metadata) string {
 	section := ""
 	for _, outputDataType := range meta.Exports {
 		if list := allComponentsThatAccept(outputDataType); len(list) > 0 {
-			section += fmt.Sprintf("- Components that accept [%s]({{< relref \"../compatibility\" >}})\n", outputDataType.Name)
+			section += fmt.Sprintf(
+				"- Components that accept [%s]({{< relref \"../compatibility/%s\" >}})\n",
+				outputDataType.Name,
+				anchorFor(outputDataType.Name, "consumers"),
+			)
 		}
 	}
 	if section != "" {
@@ -87,11 +93,23 @@ func acceptingComponentsSection(componentName string, meta metadata.Metadata) st
 	section := ""
 	for _, acceptedDataType := range meta.Accepts {
 		if list := allComponentsThatExport(acceptedDataType); len(list) > 0 {
-			section += fmt.Sprintf("- Components that export [%s]({{< relref \"../compatibility\" >}})\n", acceptedDataType.Name)
+			section += fmt.Sprintf(
+				"- Components that export [%s]({{< relref \"../compatibility/%s\" >}})\n",
+				acceptedDataType.Name,
+				anchorFor(acceptedDataType.Name, "exporters"),
+			)
 		}
 	}
 	if section != "" {
 		section = fmt.Sprintf("`%s` can accept arguments from the following components:\n\n", componentName) + section + "\n"
 	}
 	return section
+}
+
+func anchorFor(parts ...string) string {
+	for i, s := range parts {
+		reg := regexp.MustCompile("[^a-z0-9-_]+")
+		parts[i] = reg.ReplaceAllString(strings.ReplaceAll(strings.ToLower(s), " ", "-"), "")
+	}
+	return "#" + strings.Join(parts, "-")
 }

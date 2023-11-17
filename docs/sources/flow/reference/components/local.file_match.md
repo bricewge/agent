@@ -152,11 +152,11 @@ Replace the following:
 
 `local.file_match` can accept arguments from the following components:
 
-- Components that export [Targets]({{< relref "../compatibility" >}})
+- Components that export [Targets]({{< relref "../compatibility/#targets-exporters" >}})
 
 `local.file_match` exports can be consumed by the following components:
 
-- Components that accept [Targets]({{< relref "../compatibility" >}})
+- Components that accept [Targets]({{< relref "../compatibility/#targets-consumers" >}})
 
 Note that connecting some components may not be feasible or components may require further configuration to make the connection work correctly. Please refer to the linked documentation for more details.
 
