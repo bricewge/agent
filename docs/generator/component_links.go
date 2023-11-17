@@ -88,7 +88,7 @@ func GenerateCompatibleComponentsSection(componentName string) (string, error) {
 func outputComponentsSection(name string, meta metadata.Metadata) string {
 	section := ""
 	for _, outputDataType := range meta.Exports {
-		if list := listOfComponentsAccepting(outputDataType); list != "" {
+		if list := allComponentsThatAccept(outputDataType); len(list) > 0 {
 			section += fmt.Sprintf("- Components that accept [%s]({{< relref \"../compatibility\" >}})\n", outputDataType.Name)
 		}
 	}
@@ -101,7 +101,7 @@ func outputComponentsSection(name string, meta metadata.Metadata) string {
 func acceptingComponentsSection(componentName string, meta metadata.Metadata) string {
 	section := ""
 	for _, acceptedDataType := range meta.Accepts {
-		if list := listOfComponentsExporting(acceptedDataType); list != "" {
+		if list := allComponentsThatExport(acceptedDataType); len(list) > 0 {
 			section += fmt.Sprintf("- Components that export [%s]({{< relref \"../compatibility\" >}})\n", acceptedDataType.Name)
 		}
 	}
@@ -109,22 +109,6 @@ func acceptingComponentsSection(componentName string, meta metadata.Metadata) st
 		section = fmt.Sprintf("`%s` can accept arguments from the following components:\n\n", componentName) + section + "\n"
 	}
 	return section
-}
-
-func listOfComponentsAccepting(dataType metadata.Type) string {
-	return listOfLinksToComponents(allComponentsThatAccept(dataType))
-}
-
-func listOfComponentsExporting(dataType metadata.Type) string {
-	return listOfLinksToComponents(allComponentsThatExport(dataType))
-}
-
-func listOfLinksToComponents(components []string) string {
-	str := ""
-	for _, comp := range components {
-		str += fmt.Sprintf("  - [`%[1]s`]({{< relref \"../components/%[1]s.md\" >}})\n", comp)
-	}
-	return str
 }
 
 func pathToComponentMarkdown(name string) string {

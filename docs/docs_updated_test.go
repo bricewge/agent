@@ -49,8 +49,14 @@ func TestCompatibleComponentsSectionsUpdated(t *testing.T) {
 func TestCompatibleComponentsPageUpdated(t *testing.T) {
 	path := "sources/flow/reference/compatibility/_index.md"
 	for _, typ := range metadata.AllTypes {
-		runForGenerator(t, generator.NewExportersListGenerator(typ, path))
-		runForGenerator(t, generator.NewConsumersListGenerator(typ, path))
+		t.Run(typ.Name, func(t *testing.T) {
+			t.Run("exporters", func(t *testing.T) {
+				runForGenerator(t, generator.NewExportersListGenerator(typ, path))
+			})
+			t.Run("consumers", func(t *testing.T) {
+				runForGenerator(t, generator.NewConsumersListGenerator(typ, path))
+			})
+		})
 	}
 }
 

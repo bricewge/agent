@@ -1,62 +1,51 @@
 package generator
 
 import (
-	"bytes"
 	"fmt"
+	"strings"
+
 	"github.com/grafana/agent/component/metadata"
-	"os"
 )
 
 type CompatibleComponentsListGenerator struct {
-	filePath  string
-	t         metadata.Type
-	exporters bool
+	filePath    string
+	t           metadata.Type
+	sectionName string
+	generateFn  func() string
 }
 
 func NewExportersListGenerator(t metadata.Type, filePath string) *CompatibleComponentsListGenerator {
 	return &CompatibleComponentsListGenerator{
-		filePath:  filePath,
-		t:         t,
-		exporters: true,
+		filePath:    filePath,
+		t:           t,
+		sectionName: "exporters",
+		generateFn:  func() string { return listOfComponentsExporting(t) },
 	}
 }
 
 func NewConsumersListGenerator(t metadata.Type, filePath string) *CompatibleComponentsListGenerator {
 	return &CompatibleComponentsListGenerator{
-		filePath:  filePath,
-		t:         t,
-		exporters: false,
+		filePath:    filePath,
+		t:           t,
+		sectionName: "consumers",
+		generateFn:  func() string { return listOfComponentsAccepting(t) },
 	}
 }
 
 func (c *CompatibleComponentsListGenerator) Name() string {
-	expImp := "importers"
-	if c.exporters {
-		expImp = "exporters"
-	}
-	return fmt.Sprintf("generator of %s section for %q in %q", expImp, c.t.Name, c.filePath)
+	return fmt.Sprintf("generator of %s section for %q in %q", c.sectionName, c.t.Name, c.filePath)
 }
 
 func (c *CompatibleComponentsListGenerator) Generate() (string, error) {
-	return "dummy\ndummy\ndummy\ndummy\ndummy\n", nil
+	return c.generateFn(), nil
 }
 
 func (c *CompatibleComponentsListGenerator) Read() (string, error) {
-	fileContents, err := os.ReadFile(c.filePath)
+	content, err := readBetweenMarkers(c.startMarker(), c.endMarker(), c.filePath)
 	if err != nil {
-		return "", err
+		return "", fmt.Errorf("failed to read existing content for %q: %w", c.Name(), err)
 	}
-
-	startMarker := c.startMarkerBytes()
-	endMarker := c.endMarkerBytes()
-	startIndex := bytes.Index(fileContents, startMarker)
-	endIndex := bytes.Index(fileContents, endMarker)
-	if startIndex == -1 || endIndex == -1 {
-		return "", fmt.Errorf("existing section not found by %q", c.Name())
-	}
-
-	return string(fileContents[startIndex+len(startMarker) : endIndex]), nil
-
+	return content, err
 }
 
 func (c *CompatibleComponentsListGenerator) Write() error {
@@ -64,35 +53,30 @@ func (c *CompatibleComponentsListGenerator) Write() error {
 	if err != nil {
 		return err
 	}
-	fileContents, err := os.ReadFile(c.filePath)
-	if err != nil {
-		return err
-	}
-
-	startMarker := c.startMarkerBytes()
-	endMarker := c.endMarkerBytes()
-	replacement := append(append(startMarker, []byte(newSection)...), endMarker...)
-
-	startIndex := bytes.Index(fileContents, startMarker)
-	endIndex := bytes.Index(fileContents, endMarker)
-	var newFileContents []byte
-	if startIndex == -1 || endIndex == -1 {
-		// Append the new section to the end of the file
-		newFileContents = append(fileContents, append([]byte("\n"), replacement...)...)
-	} else {
-		// Replace the section with the new content
-		newFileContents = append(fileContents[:startIndex], replacement...)
-		newFileContents = append(newFileContents, fileContents[endIndex+len(endMarker):]...)
-	}
-
-	err = os.WriteFile(c.filePath, newFileContents, 0644)
-	return err
+	newSection = "\n" + newSection + "\n"
+	return writeBetweenMarkers(c.startMarker(), c.endMarker(), c.filePath, newSection, false)
 }
 
-func (c *CompatibleComponentsListGenerator) startMarkerBytes() []byte {
-	return []byte(fmt.Sprintf("<!-- START GENERATED SECTION: EXPORTERS OF %s -->", c.t.Name))
+func (c *CompatibleComponentsListGenerator) startMarker() string {
+	return fmt.Sprintf("<!-- START GENERATED SECTION: %s OF %s -->", strings.ToUpper(c.sectionName), c.t.Name)
 }
 
-func (c *CompatibleComponentsListGenerator) endMarkerBytes() []byte {
-	return []byte(fmt.Sprintf("<!-- END GENERATED SECTION: EXPORTERS OF %s -->", c.t.Name))
+func (c *CompatibleComponentsListGenerator) endMarker() string {
+	return fmt.Sprintf("<!-- END GENERATED SECTION: %s OF %s -->", strings.ToUpper(c.sectionName), c.t.Name)
+}
+
+func listOfComponentsAccepting(dataType metadata.Type) string {
+	return listOfLinksToComponents(allComponentsThatAccept(dataType))
+}
+
+func listOfComponentsExporting(dataType metadata.Type) string {
+	return listOfLinksToComponents(allComponentsThatExport(dataType))
+}
+
+func listOfLinksToComponents(components []string) string {
+	str := ""
+	for _, comp := range components {
+		str += fmt.Sprintf("  - [`%[1]s`]({{< relref \"../components/%[1]s.md\" >}})\n", comp)
+	}
+	return str
 }
